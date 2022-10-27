@@ -20,9 +20,10 @@ m = Module.new do
   end
 
   def cli_arg_version
-    return unless invoked_as_script? 
+    return unless invoked_as_script?
     # don't want to hijack other binstubs
-    return unless 'update'.start_with?(ARGV.first || ' ') 
+    return unless 'update'.start_with?(ARGV.first || ' ')
+
     # must be running `bundle update`
 
     bundler_version = nil
