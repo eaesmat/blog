@@ -5,6 +5,7 @@
 # The application 'bundle' is installed as part of a gem, and
 # this file is here to facilitate running it.
 #
+# rubocop:disable all
 
 require 'rubygems'
 
@@ -19,8 +20,7 @@ m = Module.new do
     ENV.fetch('BUNDLER_VERSION', nil)
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity
-  def cli_arg_version
+    def cli_arg_version
     return unless invoked_as_script?
     # don't want to hijack other binstubs
     return unless 'update'.start_with?(ARGV.first || ' ')
@@ -119,3 +119,4 @@ end
 m.load_bundler!
 
 load Gem.bin_path('bundler', 'bundle') if m.invoked_as_script?
+# rubocop:enable all
