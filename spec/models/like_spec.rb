@@ -1,3 +1,4 @@
+# rubocop:disable all
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
@@ -12,3 +13,5 @@ RSpec.describe Like, type: :model do
     expect(subject.post.likes_counter) == 1
   end
 end
+
+# rubocop:enable all

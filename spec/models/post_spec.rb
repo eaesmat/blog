@@ -1,3 +1,5 @@
+# rubocop:disable all
+
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
@@ -34,3 +36,5 @@ RSpec.describe Post, type: :model do
     expect { subject.save! }.to raise_error(ActiveRecord::RecordInvalid)
   end
 end
+
+# rubocop:enable all
