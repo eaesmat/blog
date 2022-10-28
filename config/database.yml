@@ -19,7 +19,7 @@ default: &default
   encoding: unicode
   user: postgres
   host: localhost
-  password: ea.esmat123
+  password: ithuba666
   port: 5432
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
@@ -27,21 +27,22 @@ default: &default
 
 development:
   <<: *default
-  database: blog_development
+  database: railsblog_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: blog
+  #username: postgres
 
   # The password associated with the postgres role (username).
-  #password:
+  #password: ithuba666
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
   # domain sockets, so uncomment these lines.
   #host: localhost
+  #port: 5432
 
   # The TCP port the server listens on. Defaults to 5432.
   # If your server runs on a different port number, change accordingly.
@@ -61,7 +62,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: blog_test
+  database: railsblog_test
+  #username: postgres
+  #password: ithuba666
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -85,6 +88,6 @@ test:
 #
 production:
   <<: *default
-  database: blog_production
-  username: blog
-  password: <%= ENV["BLOG_DATABASE_PASSWORD"] %>
+  database: railsblog_production
+  username: railsblog
+  password: <%= ENV["RAILSBLOG_DATABASE_PASSWORD"] %>
