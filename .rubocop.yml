@@ -4,7 +4,7 @@ AllCops:
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
-    - "spec/models/*.rb"
+    - "spec/**/*.rb"
 
   DisplayCopNames: true
 
