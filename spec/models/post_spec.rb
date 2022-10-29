@@ -7,9 +7,6 @@ RSpec.describe Post, type: :model do
     Post.new(user_id: 1, title: 'Hello', text: 'testing post', likes_counter: 0, comments_counter: 0)
   end
 
-  it 'is valid with valid attributes' do
-    expect(subject).to be_valid
-  end
   it 'blank title raises error' do
     subject.title = ''
     expect { subject.save! }.to raise_error(ActiveModel::StrictValidationFailed)
