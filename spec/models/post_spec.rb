@@ -4,7 +4,7 @@ RSpec.describe Post, type: :model do
   subject do
     user = User.new(name: 'esmatullah', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
                     bio: 'Teacher from UK.', post_counter: 0)
-    Post.new(user: user, title: 'Hello', text: 'testing post', likes_counter: 0, comments_counter: 0)
+    Post.new(user_id: 1, title: 'Hello', text: 'testing post', likes_counter: 0, comments_counter: 0)
   end
 
   it 'is valid with valid attributes' do
