@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  subject do
-    user = User.new(name: 'John Doe', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.',
-                    post_counter: 0)
-    post = Post.new(user_id: user, title: 'Hello', text: 'This is my first post', likes_counter: 0, comments_counter: 0)
-    Like.new(author: user, post: )
-  end
+  describe 'Validations' do
+    subject { Like.new(user_id: 3, post_id: 4) }
 
-  it '# likes_counter gets incremented by 1' do
-    expect(subject.post.likes_counter) == 1
+    before { subject.save }
+
+    it 'Post id should be an integer' do
+      subject.post_id = 'y'
+      expect(subject).to_not be_valid
+    end
   end
 end
