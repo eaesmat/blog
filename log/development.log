@@ -1,339 +1,74 @@
-  [1m[35m (1907.8ms)[0m  [1m[35mCREATE DATABASE "blog_development" ENCODING = 'unicode'[0m
-  [1m[35m (3450.6ms)[0m  [1m[35mCREATE DATABASE "blog_test" ENCODING = 'unicode'[0m
-  [1m[35m (43.3ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
-  [1m[35m (44.8ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to User (20221027093705)
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to User (20221027093705)
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to User (20221027093705)
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (45.1ms)[0m  [1m[35mCREATE TABLE "User" ("id" bigserial primary key, "name" character varying, "photo" character varying, "bio" text, "posts_counter" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (2.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027093705"]]
-  [1m[36mTRANSACTION (8.2ms)[0m  [1m[35mCOMMIT[0m
-Migrating to Post (20221027094046)
-  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to Post (20221027094046)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (27.0ms)[0m  [1m[35mCREATE TABLE "Post" ("id" bigserial primary key, "title" character varying, "text" text, "comments_counter" integer, "likes_counter" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027094046"]]
-  [1m[36mTRANSACTION (15.4ms)[0m  [1m[35mCOMMIT[0m
-Migrating to Comment (20221027094319)
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (20.7ms)[0m  [1m[35mCREATE TABLE "Comment" ("id" bigserial primary key, "text" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027094319"]]
-  [1m[36mTRANSACTION (26.9ms)[0m  [1m[35mCOMMIT[0m
-Migrating to Like (20221027094418)
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (11.8ms)[0m  [1m[35mCREATE TABLE "Like" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027094418"]]
-  [1m[36mTRANSACTION (9.0ms)[0m  [1m[35mCOMMIT[0m
-Migrating to AddUsersToPost (20221027095006)
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "Post" ADD "author_id" bigint NOT NULL[0m
-  [1m[35m (16.7ms)[0m  [1m[35mCREATE INDEX "index_Post_on_author_id" ON "Post" ("author_id")[0m
-  [1m[35m (4.4ms)[0m  [1m[35mALTER TABLE "Post" ADD CONSTRAINT "fk_rails_b67a369f84"
-FOREIGN KEY ("author_id")
-  REFERENCES "User" ("id")
-[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027095006"]]
-  [1m[36mTRANSACTION (19.5ms)[0m  [1m[35mCOMMIT[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "Comment" ADD "author_id" bigint NOT NULL[0m
-  [1m[35m (31.9ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_author_id" ON "Comment" ("author_id")[0m
-  [1m[35m (9.3ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_44e769425b"
-FOREIGN KEY ("author_id")
-  REFERENCES "User" ("id")
-[0m
-  [1m[35m (1.9ms)[0m  [1m[35mALTER TABLE "Comment" ADD "Post_id" bigint NOT NULL[0m
-  [1m[35m (32.5ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_Post_id" ON "Comment" ("Post_id")[0m
-  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_9d938f9326"
-FOREIGN KEY ("Post_id")
-  REFERENCES "Posts" ("id")
-[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.8ms)[0m  [1m[35mALTER TABLE "Comment" ADD "author_id" bigint NOT NULL[0m
-  [1m[35m (18.0ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_author_id" ON "Comment" ("author_id")[0m
-  [1m[35m (1.7ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_44e769425b"
-FOREIGN KEY ("author_id")
-  REFERENCES "User" ("id")
-[0m
-  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "Comment" ADD "Post_id" bigint NOT NULL[0m
-  [1m[35m (21.9ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_Post_id" ON "Comment" ("Post_id")[0m
-  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_9d938f9326"
-FOREIGN KEY ("Post_id")
-  REFERENCES "Posts" ("id")
-[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "Comment" ADD "author_id" bigint NOT NULL[0m
-  [1m[35m (15.9ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_author_id" ON "Comment" ("author_id")[0m
-  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_44e769425b"
-FOREIGN KEY ("author_id")
-  REFERENCES "User" ("id")
-[0m
-  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "Comment" ADD "Post_id" bigint NOT NULL[0m
-  [1m[35m (15.6ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_Post_id" ON "Comment" ("Post_id")[0m
-  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_9d938f9326"
-FOREIGN KEY ("Post_id")
-  REFERENCES "Posts" ("id")
-[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "Comment" ADD "author_id" bigint NOT NULL[0m
-  [1m[35m (28.8ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_author_id" ON "Comment" ("author_id")[0m
-  [1m[35m (1.3ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_44e769425b"
-FOREIGN KEY ("author_id")
-  REFERENCES "User" ("id")
-[0m
-  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "Comment" ADD "Posts_id" bigint NOT NULL[0m
-  [1m[35m (13.8ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_Posts_id" ON "Comment" ("Posts_id")[0m
-  [1m[35m (1.4ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_422858becf"
-FOREIGN KEY ("Posts_id")
-  REFERENCES "Posts" ("id")
-[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "Comment" ADD "author_id" bigint NOT NULL[0m
-  [1m[35m (17.2ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_author_id" ON "Comment" ("author_id")[0m
-  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_44e769425b"
-FOREIGN KEY ("author_id")
-  REFERENCES "User" ("id")
-[0m
-  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "Comment" ADD "Posts_id" bigint NOT NULL[0m
-  [1m[35m (12.9ms)[0m  [1m[35mCREATE INDEX "index_Comment_on_Posts_id" ON "Comment" ("Posts_id")[0m
-  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "Comment" ADD CONSTRAINT "fk_rails_422858becf"
-FOREIGN KEY ("Posts_id")
-  REFERENCES "Posts" ("id")
-[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Pluck (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "comments" ADD "posts_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to AddUsersAndPostsToCommnets (20221027095149)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "comments" ADD "author_id" bigint NOT NULL[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to CreateUsers (20221027103418)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (52.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying, "photo" character varying, "bio" text, "post_counter" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.7ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027103418"]]
-  [1m[36mTRANSACTION (10.7ms)[0m  [1m[35mCOMMIT[0m
-Migrating to CreatePosts (20221027103503)
-  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (29.8ms)[0m  [1m[35mCREATE TABLE "posts" ("id" bigserial primary key, "title" character varying, "text" text, "comments_counter" integer, "likes_counter" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027103503"]]
-  [1m[36mTRANSACTION (15.5ms)[0m  [1m[35mCOMMIT[0m
-Migrating to CreateLikes (20221027103612)
-  [1m[35m (0.8ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Migrating to CreateLikes (20221027103612)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (11.9ms)[0m  [1m[35mCREATE TABLE "likes" ("id" bigserial primary key, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027103612"]]
-  [1m[36mTRANSACTION (8.7ms)[0m  [1m[35mCOMMIT[0m
-Migrating to CreateComments (20221027103721)
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (32.6ms)[0m  [1m[35mCREATE TABLE "comments" ("id" bigserial primary key, "text" text, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027103721"]]
-  [1m[36mTRANSACTION (10.0ms)[0m  [1m[35mCOMMIT[0m
-Migrating to AddUserRefToPosts (20221027103822)
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.6ms)[0m  [1m[35mALTER TABLE "posts" ADD "user_id" bigint NOT NULL[0m
-  [1m[35m (11.6ms)[0m  [1m[35mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
-  [1m[35m (3.8ms)[0m  [1m[35mALTER TABLE "posts" ADD CONSTRAINT "fk_rails_5b5ddfd518"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-[0m
-  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027103822"]]
-  [1m[36mTRANSACTION (17.2ms)[0m  [1m[35mCOMMIT[0m
-Migrating to AddUserAndPostRefToCommnets (20221027103941)
-  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "comments" ADD "user_id" bigint NOT NULL[0m
-  [1m[35m (17.1ms)[0m  [1m[35mCREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")[0m
-  [1m[35m (2.8ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_03de2dc08c"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-[0m
-  [1m[35m (1.2ms)[0m  [1m[35mALTER TABLE "comments" ADD "post_id" bigint NOT NULL[0m
-  [1m[35m (12.3ms)[0m  [1m[35mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
-  [1m[35m (2.4ms)[0m  [1m[35mALTER TABLE "comments" ADD CONSTRAINT "fk_rails_2fd19c0db7"
-FOREIGN KEY ("post_id")
-  REFERENCES "posts" ("id")
-[0m
-  [1m[36mActiveRecord::SchemaMigration Create (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027103941"]]
-  [1m[36mTRANSACTION (9.1ms)[0m  [1m[35mCOMMIT[0m
-Migrating to AddUserAndPostRefToLikes (20221027104018)
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "likes" ADD "user_id" bigint NOT NULL[0m
-  [1m[35m (16.7ms)[0m  [1m[35mCREATE INDEX "index_likes_on_user_id" ON "likes" ("user_id")[0m
-  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "likes" ADD CONSTRAINT "fk_rails_1e09b5dabf"
-FOREIGN KEY ("user_id")
-  REFERENCES "users" ("id")
-[0m
-  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "likes" ADD "post_id" bigint NOT NULL[0m
-  [1m[35m (15.4ms)[0m  [1m[35mCREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")[0m
-  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "likes" ADD CONSTRAINT "fk_rails_87a8aac469"
-FOREIGN KEY ("post_id")
-  REFERENCES "posts" ("id")
-[0m
-  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20221027104018"]]
-  [1m[36mTRANSACTION (9.9ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mActiveRecord::InternalMetadata Create (1.5ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-10-27 10:41:17.403655"], ["updated_at", "2022-10-27 10:41:17.403655"]]
-  [1m[36mTRANSACTION (15.9ms)[0m  [1m[35mCOMMIT[0m
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-Started GET "/" for 127.0.0.1 at 2022-10-27 17:48:20 +0430
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2022-10-29 09:23:08 +0430
+  [1m[36mActiveRecord::SchemaMigration Pluck (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mCACHE ActiveRecord::SchemaMigration Pluck (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+You have 7 pending migrations:
+
+20221018141507_create_users.rb
+20221018141643_create_comments.rb
+20221018141732_create_posts.rb
+20221018141855_create_likes.rb
+20221018142005_add_users_ref_to_posts.rb
+20221018142053_add_users_and_posts_ref_to_comments.rb
+20221018142133_add_users_and_posts_ref_to_likes.rb
+
+
+):
+  
+activerecord (7.0.4) lib/active_record/migration.rb:627:in `check_pending!'
+activerecord (7.0.4) lib/active_record/migration.rb:592:in `block (2 levels) in call'
+activesupport (7.0.4) lib/active_support/file_update_checker.rb:83:in `execute'
+activerecord (7.0.4) lib/active_record/migration.rb:597:in `block in call'
+activerecord (7.0.4) lib/active_record/migration.rb:589:in `synchronize'
+activerecord (7.0.4) lib/active_record/migration.rb:589:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (7.0.4) lib/active_support/callbacks.rb:99:in `run_callbacks'
+actionpack (7.0.4) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/actionable_exceptions.rb:17:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/debug_exceptions.rb:28:in `call'
+web-console (4.2.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.2.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.2.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/show_exceptions.rb:26:in `call'
+railties (7.0.4) lib/rails/rack/logger.rb:40:in `call_app'
+railties (7.0.4) lib/rails/rack/logger.rb:25:in `block in call'
+activesupport (7.0.4) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (7.0.4) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (7.0.4) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (7.0.4) lib/rails/rack/logger.rb:25:in `call'
+sprockets-rails (3.4.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/remote_ip.rb:93:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.4) lib/rack/method_override.rb:24:in `call'
+rack (2.2.4) lib/rack/runtime.rb:22:in `call'
+activesupport (7.0.4) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/server_timing.rb:61:in `block in call'
+actionpack (7.0.4) lib/action_dispatch/middleware/server_timing.rb:26:in `collect_events'
+actionpack (7.0.4) lib/action_dispatch/middleware/server_timing.rb:60:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/static.rb:23:in `call'
+rack (2.2.4) lib/rack/sendfile.rb:110:in `call'
+actionpack (7.0.4) lib/action_dispatch/middleware/host_authorization.rb:137:in `call'
+railties (7.0.4) lib/rails/engine.rb:530:in `call'
+puma (5.6.5) lib/puma/configuration.rb:252:in `call'
+puma (5.6.5) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.6.5) lib/puma/thread_pool.rb:340:in `with_force_shutdown'
+puma (5.6.5) lib/puma/request.rb:76:in `handle_request'
+puma (5.6.5) lib/puma/server.rb:443:in `process_client'
+puma (5.6.5) lib/puma/thread_pool.rb:147:in `block in spawn_thread'
+Started GET "/" for 127.0.0.1 at 2022-10-29 09:25:22 +0430
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
 Processing by Rails::WelcomeController#index as HTML
   Rendering /var/lib/gems/3.0.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb
-  Rendered /var/lib/gems/3.0.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.9ms | Allocations: 832)
-Completed 200 OK in 16ms (Views: 6.4ms | ActiveRecord: 0.0ms | Allocations: 7772)
+  Rendered /var/lib/gems/3.0.0/gems/railties-7.0.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 1.1ms | Allocations: 394)
+Completed 200 OK in 9ms (Views: 2.3ms | ActiveRecord: 0.0ms | Allocations: 4491)
 
 
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mUser Create (2.8ms)[0m  [1m[32mINSERT INTO "users" ("name", "photo", "bio", "post_counter", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Tom"], ["photo", "https://unsplash.com/photos/F_-0BxGuVvo"], ["bio", "Teacher from Mexico."], ["post_counter", nil], ["created_at", "2022-10-28 07:33:38.905670"], ["updated_at", "2022-10-28 07:33:38.905670"]]
-  [1m[36mTRANSACTION (22.6ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "photo", "bio", "post_counter", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Lilly"], ["photo", "https://unsplash.com/photos/F_-0BxGuVvo"], ["bio", "Teacher from Poland."], ["post_counter", nil], ["created_at", "2022-10-28 07:34:17.090652"], ["updated_at", "2022-10-28 07:34:17.090652"]]
-  [1m[36mTRANSACTION (16.8ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
-  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.5ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
-  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(892336952976185220)[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mActiveRecord::SchemaMigration Pluck (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
-  [1m[36mTRANSACTION (5.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mPost Create (4.5ms)[0m  [1m[32mINSERT INTO "posts" ("title", "text", "comments_counter", "likes_counter", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Hello"], ["text", "This is my first post"], ["comments_counter", nil], ["likes_counter", nil], ["created_at", "2022-10-28 08:25:14.587015"], ["updated_at", "2022-10-28 08:25:14.587015"], ["user_id", 1]]
-  [1m[36mTRANSACTION (19.1ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mPost Load (1.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
-  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
-  [1m[36mPost Load (1.1ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
-  [1m[36mUser Load (1.8ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
-  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "photo", "bio", "post_counter", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Esmat"], ["photo", "https://unsplash.com/photos/F_-0BxGuVvo"], ["bio", "Teacher from Mexico."], ["post_counter", nil], ["created_at", "2022-10-28 09:13:27.708340"], ["updated_at", "2022-10-28 09:13:27.708340"]]
-  [1m[36mTRANSACTION (16.5ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mPost Create (0.9ms)[0m  [1m[32mINSERT INTO "posts" ("title", "text", "comments_counter", "likes_counter", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Hello second"], ["text", "senod post"], ["comments_counter", nil], ["likes_counter", nil], ["created_at", "2022-10-28 09:19:26.450978"], ["updated_at", "2022-10-28 09:19:26.450978"], ["user_id", 3]]
-  [1m[36mTRANSACTION (16.8ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mPost Create (1.8ms)[0m  [1m[32mINSERT INTO "posts" ("title", "text", "comments_counter", "likes_counter", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Hello third"], ["text", "third post"], ["comments_counter", nil], ["likes_counter", nil], ["created_at", "2022-10-28 09:20:01.260857"], ["updated_at", "2022-10-28 09:20:01.260857"], ["user_id", 3]]
-  [1m[36mTRANSACTION (18.2ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mPost Create (1.1ms)[0m  [1m[32mINSERT INTO "posts" ("title", "text", "comments_counter", "likes_counter", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Hello fourth"], ["text", "fourth post"], ["comments_counter", nil], ["likes_counter", nil], ["created_at", "2022-10-28 09:20:29.353158"], ["updated_at", "2022-10-28 09:20:29.353158"], ["user_id", 3]]
-  [1m[36mTRANSACTION (9.6ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mPost Load (0.6ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
-  [1m[36mComment Load (0.8ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "photo", "bio", "post_counter", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Esmatulla"], ["photo", "https://unsplash.com/photos/F_-0BxGuVvo"], ["bio", "Teacher from Mexico."], ["post_counter", nil], ["created_at", "2022-10-28 09:29:38.750783"], ["updated_at", "2022-10-28 09:29:38.750783"]]
-  [1m[36mTRANSACTION (8.6ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mPost Create (0.7ms)[0m  [1m[32mINSERT INTO "posts" ("title", "text", "comments_counter", "likes_counter", "created_at", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Hello"], ["text", "This is my fivth post"], ["comments_counter", nil], ["likes_counter", nil], ["created_at", "2022-10-28 09:30:48.743234"], ["updated_at", "2022-10-28 09:30:48.743234"], ["user_id", 4]]
-  [1m[36mTRANSACTION (10.0ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mComment Load (1.5ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
-  [1m[36mComment Load (0.9ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mUser Create (1.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "photo", "bio", "post_counter", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Tom"], ["photo", "https://unsplash.com/photos/F_-0BxGuVvo"], ["bio", "Teacher from Mexico."], ["post_counter", nil], ["created_at", "2022-10-28 10:01:07.699789"], ["updated_at", "2022-10-28 10:01:07.699789"]]
-  [1m[36mTRANSACTION (10.9ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
-  [1m[36mUser Create (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "photo", "bio", "post_counter", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["name", "Lilly"], ["photo", "https://unsplash.com/photos/F_-0BxGuVvo"], ["bio", "Teacher from Poland."], ["post_counter", nil], ["created_at", "2022-10-28 10:01:07.715990"], ["updated_at", "2022-10-28 10:01:07.715990"]]
-  [1m[36mTRANSACTION (12.8ms)[0m  [1m[35mCOMMIT[0m
-  [1m[36mUser Load (1.4ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
-  [1m[36mComment Load (5.7ms)[0m  [1m[34mSELECT "comments".* FROM "comments"[0m
