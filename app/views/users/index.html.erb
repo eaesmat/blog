@@ -1,0 +1,13 @@
+<h1>List of Users</h1>
+<div>
+  <% @users.each do |user| %>
+    <ul>
+      <li>
+        <h3><%= user.name %></h3>
+        <img src= '<%= user.photo %>' alt='photo comes here' width="100" height="100" />
+        <p><%= user.bio %></p>
+        <%=link_to 'View', user%>
+      </li>
+    </ul>
+  <% end %>
+</div>

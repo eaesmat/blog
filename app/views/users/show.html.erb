@@ -1,0 +1,16 @@
+<h1> Details of: <%=@user.name%> </h1>
+<p><%= @user.bio%></p>
+
+
+<h1>All posts by  <%= @user.name %></h1>
+<p>
+  <% @posts = Post.where(user_id: @user.id) %>
+</p>
+<ul>
+    <% @posts.each do |post| %>
+      <li>
+        <h4> <%= post.title %> </h4>
+        <p> <%= post.text %> </p>
+      </li>
+    <% end %>
+</ul>
