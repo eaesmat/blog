@@ -74,3 +74,4 @@ group :test do
   gem 'webdrivers'
 end
 # rubocop:enable all
+gem 'ruby-lsp', '~> 0.3.5', group: :development

@@ -1,0 +1,7 @@
+<h1>All Posts</h1>
+<%@posts.each do |post|%>
+<h3><%= post.title%></h3>
+<p><%= post.text%></p>
+<%= link_to 'See More', post%>
+<hr>
+<%end%>
