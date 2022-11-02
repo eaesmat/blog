@@ -14,7 +14,7 @@ RSpec.describe 'PostControllers', type: :request do
       expect(response).to render_template 'posts/index'
     end
 
-    it 'If the response body includes correct placeholder text of index'  do
+    it 'If the response body includes correct placeholder text of index' do
       expect(response.body).to include('All Posts')
     end
   end
