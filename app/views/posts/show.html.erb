@@ -1,2 +1,13 @@
-<h1><%=@posts.title%> </h1>
-<p> <%= @posts.text%>
+ <div class="container border rounded-3 p-3 col-8 justify-content-center mt-4">
+           <h4> <%= @posts.title %> </h4>
+        <p> <%= @posts.text %> </p>
+        <p class="text-end"> <small>Likes: <%= @posts.likes_counter%></small> , <small>Comments : <%= @posts.comments_counter%></small></p>
+        </div>
+<div class="container border rounded-3 p-3 col-8 justify-content-center mt-4">
+     <h6>Comments:</h6>
+             <% @posts.most_recent_comments.each do |comment| %>
+
+                <p class="d-inline fw-blod"> <%= comment.user.name%>: </p>
+                <small><%= comment.text%> </small> <br>
+            <%end%>
+         </div>
