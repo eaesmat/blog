@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'PostControllers', type: :request do
-  subject { User.create(name: 'Asim Khan', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from UK.') }
+  subject { User.create(name: 'Esmat', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from UK.') }
   describe 'Posts Index' do
     before(:example) do
       get '/posts/index'
