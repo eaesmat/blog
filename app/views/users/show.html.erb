@@ -12,7 +12,7 @@
   <% @posts = Post.where(user_id: @user.id) %>
 </p>
 <ul>
-    <% @posts.limit(3).each do |post| %>
+    <% @posts.recent_three_posts.each do |post| %>
         <div class="container border rounded-3 p-3 col-8 justify-content-center mt-4">
            <h4> <%= post.title %> </h4>
         <p> <%= post.text %> </p>
