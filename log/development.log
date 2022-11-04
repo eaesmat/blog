@@ -8946,3 +8946,40 @@ Completed 200 OK in 20ms (Views: 14.3ms | ActiveRecord: 1.7ms | Allocations: 536
 
 
   [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts"[0m
+Started GET "/" for 127.0.0.1 at 2022-11-04 12:13:42 +0430
+  [1m[36mActiveRecord::SchemaMigration Pluck (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 34.5ms | Allocations: 17290)
+  Rendered layout layouts/application.html.erb (Duration: 106.7ms | Allocations: 52484)
+Completed 200 OK in 138ms (Views: 107.1ms | ActiveRecord: 8.5ms | Allocations: 62919)
+
+
+Started GET "/users/" for 127.0.0.1 at 2022-11-04 12:13:46 +0430
+Processing by UsersController#index as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering users/index.html.erb within layouts/application
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/views/users/index.html.erb:3
+  Rendered users/index.html.erb within layouts/application (Duration: 2.9ms | Allocations: 680)
+  Rendered layout layouts/application.html.erb (Duration: 6.7ms | Allocations: 3255)
+Completed 200 OK in 8ms (Views: 7.1ms | ActiveRecord: 0.5ms | Allocations: 3655)
+
+
+Started GET "/users/9" for 127.0.0.1 at 2022-11-04 12:13:49 +0430
+Processing by UsersController#show as HTML
+  Parameters: {"id"=>"9"}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 9], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `show'
+  Rendering layout layouts/application.html.erb
+  Rendering users/show.html.erb within layouts/application
+  [1m[36mPost Load (0.4ms)[0m  [1m[34mSELECT "posts".* FROM "posts" WHERE "posts"."user_id" = $1[0m  [["user_id", 9]]
+  ↳ app/views/users/show.html.erb:15
+  Rendered users/show.html.erb within layouts/application (Duration: 26.2ms | Allocations: 20128)
+  Rendered layout layouts/application.html.erb (Duration: 29.9ms | Allocations: 22679)
+Completed 200 OK in 44ms (Views: 27.5ms | ActiveRecord: 4.1ms | Allocations: 25820)
+
+
