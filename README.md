@@ -52,7 +52,7 @@ git clone https://github.com/eaesmat/blog.git
 
 - GitHub: [@Esmatullah Ahamdzai](https://github.com/eaesmat)
 - Twitter: [@Esmatullah Ahamdzai](https://twitter.com/ea_ahmadzai)
-- LinkedIn: [@Esmatullah Ahamdzai](https://www.linkedin.com/in/esmatullah-ahmadzai
+- LinkedIn: [@Esmatullah Ahamdzai](https://www.linkedin.com/in/esmatullah-ahmadzai)
 
 👤 **Johnson Emmanuel (Johnson)**
 
