@@ -7,9 +7,6 @@
         <p class="text-end">Number of Posts: <%=@user.post_counter%></p>
       </div>
     </ul>
-
-
-  <% @posts = Post.where(user_id: @user.id) %>
 </p>
 <ul>
     <% @posts.each do |post| %>
