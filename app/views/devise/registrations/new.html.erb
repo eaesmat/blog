@@ -1,0 +1,114 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+<div
+  class="flex  items-center justify-center px-4 py-12 sm:px-6 lg:px-8"
+>
+  <div class="w-full max-w-md">
+
+    <h2
+      class="mt-6 text-center text-3xl font-extrabold leading-9 text-gray-700"
+    >
+      Sign Up
+    </h2>
+    <div class="flash">
+    <%= render "devise/shared/error_messages", resource: resource %>
+</div>
+    <form class="mt-8">
+
+ <div class="mt-6">
+        <%= f.label "Full Name", class:"block text-sm font-medium leading-5
+        text-bb-gray-700" %>
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= f.text_field :name, autofocus: true, autocomplete: "name",
+          placeholder:"Full Name", class: "transition border focus:outline-none
+          focus:shadow-outline-blue block w-full appearance-none rounded-md
+          border-gray-300 px-3 py-2 placeholder-gray-400 duration-150
+          ease-in-out focus:border-blue-300 sm:text-sm sm:leading-5",
+          required:"true" %>
+        </div>
+      </div>
+ <div class="mt-6">
+        <%= f.label "Photo URL", class:"block text-sm font-medium leading-5
+        text-bb-gray-700" %>
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= f.text_field :photo, autofocus: true, autocomplete: "photo",
+          placeholder:"Photo URL", class: "transition border focus:outline-none
+          focus:shadow-outline-blue block w-full appearance-none rounded-md
+          border-gray-300 px-3 py-2 placeholder-gray-400 duration-150
+          ease-in-out focus:border-blue-300 sm:text-sm sm:leading-5",
+          required:"true" %>
+        </div>
+      </div>
+
+ <div class="mt-6">
+        <%= f.label "Bio", class:"block text-sm font-medium leading-5
+        text-bb-gray-700" %>
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= f.text_field :bio, autofocus: true, autocomplete: "bio",
+          placeholder:"Bio", class: "transition border focus:outline-none
+          focus:shadow-outline-blue block w-full appearance-none rounded-md
+          border-gray-300 px-3 py-2 placeholder-gray-400 duration-150
+          ease-in-out focus:border-blue-300 sm:text-sm sm:leading-5",
+          required:"true" %>
+        </div>
+      </div>
+
+
+
+
+
+
+      <div class="mt-6">
+        <%= f.label :email, class: "block text-sm font-medium leading-5
+        text-bb-gray-700" %>
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= f.email_field :email, autofocus: true, required:"true",
+          autocomplete: "email", class:"transition border focus:outline-none
+          focus:shadow-outline-blue block w-full appearance-none rounded-md
+          border-gray-300 px-3 py-2 placeholder-gray-400 duration-150
+          ease-in-out focus:border-blue-300 sm:text-sm sm:leading-5",
+          placeholder:"Email" %>
+        </div>
+      </div>
+      <div class="mt-6">
+        <%= f.label :password, class: "block text-sm font-medium leading-5
+        text-bb-gray-700" %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= f.password_field :password, autocomplete: "new-password",
+          class:"transition border focus:outline-none focus:shadow-outline-blue
+          block w-full appearance-none rounded-md border-gray-300 px-3 py-2
+          placeholder-gray-400 duration-150 ease-in-out focus:border-blue-300
+          sm:text-sm sm:leading-5", placeholder:"****************",
+          required:"true" %>
+        </div>
+      </div>
+      <div class="mt-6">
+        <%= f.label :password_confirmation, class: "block text-sm font-medium
+        leading-5 text-bb-gray-700" %>
+        <div class="mt-1 rounded-md shadow-sm">
+          <%= f.password_field :password_confirmation, autocomplete:
+          "new-password", class:"transition border focus:outline-none
+          focus:shadow-outline-blue block w-full appearance-none rounded-md
+          border-gray-300 px-3 py-2 placeholder-gray-400 duration-150
+          ease-in-out focus:border-blue-300 sm:text-sm sm:leading-5",
+          placeholder:"****************", required:"true" %>
+        </div>
+      </div>
+      <%= f.submit "Sign up", class: "transition border bg-blue-500
+      hover:bg-blue-700 focus:outline-none group relative flex w-full
+      justify-center rounded-md border-transparent px-4 py-2 my-4 text-sm
+      font-medium leading-5 text-white duration-150 ease-in-out" %>
+    </form>
+    <div class="text-center mt-4 font-weight-light">
+      Already have an account? <%= link_to "Sign In", new_user_session_path,
+      class: "transition focus:outline-none mt-2 text-center text-sm
+      font-medium text-bb-purple duration-150 ease-in-out focus:underline
+      text-center" %>
+    </div>
+  </div>
+</div>
+<% end %>
