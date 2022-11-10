@@ -1,11 +1,19 @@
 class User < ApplicationRecord
-  has_many :posts
-  has_many :comments
-  has_many :likes
-  # validates :name, presence: { strict: true }
-  # validates :post_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable
+  MAX_LENGTH = 35
+  MIN_LENGTH = 3
 
-  def recent_three_posts
-    posts.order(created_at: 'desc').limit(3)
+  validates :name, presence: true, length: { maximum: MAX_LENGTH }
+  validates :photo, presence: true, length: { minimum: MIN_LENGTH }
+  validates :bio, presence: true, length: { minimum: MIN_LENGTH }
+  has_many :posts, foreign_key: :author_id
+  has_many :comments, foreign_key: 'author_id'
+  has_many :likes, foreign_key: 'author_id'
+  validates :post_counter, numericality: { greater_than_or_equal_to: 0 }
+
+  def recent_posts
+    posts.order(created_at: :desc).limit(3)
   end
 end
