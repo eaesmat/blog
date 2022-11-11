@@ -1,0 +1,16 @@
+<li>
+  <h3> <%= post.title %></h3>
+ <h3> <%= truncate(post.text, :length => 150) %> </h3>
+ <strong>
+  <h4 class="placeholder stats">
+   Comments: <%= post.comments_counter %>,
+   Likes: <%= post.likes_counter %> </h4>
+ </strong>
+  <% post.recent_five_comments.each do |comment| %>
+    <h4> <%= comment.user.name%>: <%= comment.text%><p>
+     <% if can? :destroy, comment %>
+      <%= link_to "Delete Comment", user_post_comment_path(post.user, post, comment), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+    <% end %>
+  <% end %>
+</li>
+

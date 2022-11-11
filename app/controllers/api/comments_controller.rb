@@ -1,30 +1,22 @@
 class Api::CommentsController < ApplicationController
-  before_action :authenticate_request
-  # protect_from_forgery with: :null_session
+  before_action :authorize_request
 
   def index
-    @comments = Comment.where(post_id: params[:post_id])
-
-    if @comments.empty?
-      json_response({ msg: 'No comments found' }, 400)
-    else
-      render json: @comments
-    end
+    @user = User.find(params[:user_id])
+    @post = @user.posts.find(params[:post_id])
+    json_response(@post.comments)
   end
 
   def create
-    @comment = Comment.create(
-      text: comment_params[:text],
-      author_id: params[:user_id],
-      post_id: params[:post_id]
-    )
-
-    json_response(@comment, :created)
+    @post = Post.find(params[:post_id])
+    comment = Comment.new(comment_params)
+    comment.post = @post
+    comment.user = @current_user
+    comment.save!
+    json_response(comment, :created)
   end
 
-  private
-
   def comment_params
-    params.require(:comment).permit(:text)
+    params.permit(:text)
   end
 end

@@ -1,31 +1,30 @@
 class ApplicationController < ActionController::Base
-  # before_action :authenticate_user!
-  before_action :update_allowed_parameters, if: :devise_controller?
+  include Pagy::Backend
+  include Response
+  include ExceptionHandler
 
-  protected
+  protect_from_forgery with: :exception, unless: -> { request.format.json? }
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def json_response(json, status)
-    render json:, status:
-  end
-
-  def update_allowed_parameters
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :surname, :email, :password) }
-    devise_parameter_sanitizer.permit(:account_update) do |u|
-      u.permit(:name, :surname, :email, :password, :current_password)
+  def authorize_request
+    header = request.headers['Authorization']
+    header = header.split.last if header
+    begin
+      @decoded = JsonWebToken.decode(header)
+      @user_id = params[:user_id]
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { errors: e.message }, status: :unauthorized
+    rescue JWT::DecodeError => e
+      render json: { errors: "JWT_ error: #{e.message}" }, status: :unauthorized
+    else
+      render json: { errors: 'Missing token' }, status: :unauthorized unless @decoded
     end
   end
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, alert: exception.message
-  end
-  # Catch all CanCan errors and alert the user of the exception
+  protected
 
-  def after_sign_out_path_for(_resource_or_scope)
-    '/users/sign_in'
-  end
-
-  def authenticate_request
-    @current_user = AuthorizeApiRequest.call(request.headers).result
-    render json: { error: 'Unauthorized user' }, status: 401 unless @current_user
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name email password password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[name email password current_password])
   end
 end

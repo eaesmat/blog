@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/BlockLength
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
@@ -33,27 +32,15 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 
-# Capybara.register_driver :selenium_chrome do |app|
-#   Capybara::Selenium::Driver.new(app, browser: :chrome)
-# end
+Capybara.register_driver :selenium_chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
 
-# Capybara.javascript_driver = :selenium_chrome
+Capybara.javascript_driver = :selenium_chrome
 
 RSpec.configure do |config|
-  Capybara.register_driver :selenium_chrome do |app|
-    Capybara::Selenium::Driver.new(app, browser: :chrome)
-  end
-
-  Capybara.javascript_driver = :selenium_chrome
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-  Capybara.configure do |c|
-    c.run_server = false
-    c.app_host = 'http://127.0.0.1:3000'
-    c.server_port = 3000
-    c.default_host = 'http://127.0.0.1:3000'
-  end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -116,4 +103,3 @@ RSpec.configure do |config|
     end
   end
 end
-# rubocop:enable Metrics/BlockLength

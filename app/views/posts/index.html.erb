@@ -1,42 +1,12 @@
-<div class = 'container'>
-  <h1 class = 'page_title'>List of all Posts by <%= @user.name %></h1>
-  <div class ="sigin-out-container">
-    <%= link_to 'Sign Out', destroy_user_session_path, class: 'post_btn', data: { turbo_method: :delete } %>
-  </div>
-  <div class = 'user_container'>
-    <img class = 'user_profile' src= '<%= @user.photo %>' alt='photo comes here' width="100" height="100" />
-      <div class = 'info_holder' >
-        <h3><%= @user.name %></h3>
-        <p class = 'post_counter'>Post :  <%= @user.posts_counter %></p>
-      </div>
-  </div>
-  <% @posts = Post.where(author_id: @user.id) %> 
-  <ul>
-    <% @posts.each do |post| %>
-      <li class = 'post_container'>
-        <a href="/users/<%= @user.id %>/posts/<%= post.id %>" class = 'user_clickable'>
-          <h3>#<%= post[:id] %> <%= post[:title] %> </h3>
-          <p> <%= post[:text] %> </p>
-          <%  if can? :destroy, Post %>
-            <%= button_to 'delete post', "/users/#{@user.id}/posts/#{post.id}", class: 'post_btn', method: :delete%>
-          <% end %>
-          <p class = 'post_counter' >Comments:<%= post[:comments_counter] %> Likes: <%= post[:likes_counter] %> </p>
-          <ul>
-            <% post.most_recent_comments.each do |comment| %>
-              <li class = 'comment_holder'>
-                <h5> <%= comment.author.name%></h5>
-                <p><%= comment.text%> </p>
-                <% if can? :destroy, Comment %>
-                  <%= button_to 'delete comment', "/posts/#{post.id}/comments/#{comment.id}", class: 'post_btn', method: :delete %>
-                <% end %>
-              </li>
-            <%end%>
-          </ul>
-        </a>
-      </li>
+<section class='list'>
+  <%= render'partials/user', user: @user %>
+<button class="back"><%= link_to 'back', users_path %></button>
+   <% @posts.each do |post| %>
+    <ul class="post-list">
+    <%= render 'partials/post', post: post %>
+    </ul>
     <% end %>
-  </ul>
-    <div class ="sigin-out-container">
-    <%= link_to 'Back', "/users/#{@user.id}", class: 'post_btn' %>
-   </div>
-</div>
+  <div class='pagy'>
+ <%== pagy_nav(@pagy) %>
+    </div>
+</section>

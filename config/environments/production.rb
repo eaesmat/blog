@@ -2,6 +2,22 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    authentication: "plain",
+    enable_starttls_auto: true,
+    user_name: "nicholasemmanuel321@gmail.com",
+    password: "fdkwppuzqkjexgsw", 
+    domain: "smtp.gmail.com",
+    openssl_verify_mode: "none",
+  }
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -60,7 +76,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "railsblog_production"
+  # config.active_job.queue_name_prefix = "My_Blog_App_production"
 
   config.action_mailer.perform_caching = false
 

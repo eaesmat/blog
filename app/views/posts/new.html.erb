@@ -1,15 +1,16 @@
-<div class="container">
-  <h1 class="page_title">Create a Post</h1>
-  <div class ="sigin-out-container">
-    <%= link_to 'Sign Out', destroy_user_session_path, class: 'post_btn', data: { turbo_method: :delete } %>
+<section class='added'>
+<h3>Create Post</h3>
+<%= form_with model: @post, url: user_posts_path, method: :post, scope: :new_post do |form| %>
+  <div class="label">
+    <%= form.label :Subject %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
-  <%= form_with model: @post, class: 'new_post_form' ,scope: :posts do |form| %>
-    <%= form.label :title, "Title" %>
-    <%= form.text_field :title, placeholder: "Title", required: true%>
-    <%= form.text_area :text, placeholder: "Type here...", rows: 14, required: true %>
-    <%= form.submit "Post", class: 'post_btn' %>
-  <% end %>
-    <div class ="sigin-out-container">
-    <%= link_to 'Back',  :back, class: 'post_btn' %>
-   </div>
-</div>
+  <div class="add">
+    <%= form.label :Comment %>
+    <%= form.text_area :text, class: "form-control text" %>
+  </div>
+    <div class='submit'>
+    <%= form.submit %>
+    </div>
+<% end %>
+</section>

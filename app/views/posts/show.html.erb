@@ -1,43 +1,38 @@
-<div class = 'container'>
-  <h1 class = 'page_title'>Post Details</h1>
-   <div class ="sigin-out-container">
-    <%= link_to 'Sign Out', destroy_user_session_path, class: 'post_btn', data: { turbo_method: :delete } %>
-  </div>
-  <div class = 'post_container'>
-    <div class = 'post_user_container'>
-      <img class = 'user_profile' src = '<%= @post.author.photo %>' alt='photo comes here' width="100" height="100" />
-      <h2><%= @post.author.name %></h2>
+<button class='back'><%= link_to 'Back', user_posts_path(@user.id) %></button>
+<section class="posts">
+  <div class="card-info">
+    <div class='span'>
+      <h3> <%=@post.title%> by <%= @user.name%> </h3>
+      <p class="text"> Comments: <%= @post.comments_counter %>, Likes: <%= @post.likes_counter %> </p>
     </div>
-    <h3><%= @post.title %></h3>
-    <p><%= @post.text %></p>
-    
-    <% if can? :create, Like %>
-    <%= form_with url: "/posts/#{@post.id}/likes", scope: :like do |form| %>
-      <%= form.submit "Like this post", class: 'post_btn' %>
-    <% end %>
-    <% end %>
-       <% if can? :create, Comment %>
-     <%= render partial: "create_comments", local: { post: @post } %> 
-      <% end %>
-    
-    <div class="post_counter">
-      <p class = 'post_counter' >
-        Comments:<%= @post[:comments_counter] %> Likes: <%= @post[:likes_counter] %>
-      </p>
-    </div>
-    <ul>
-      <% @post.comments.each do |comment| %>
-        <li class = 'comment_holder'>
-          <h5> <%= comment.author.name %></h5>
-          <p><%= comment[:text] %> </p>
-          <% if can? :destroy, Comment %>
-          <%= button_to 'delete comment', "/posts/#{@post.id}/comments/#{comment.id}", method: :delete, class: 'post_btn' %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
+    <h4> <%= @post.text%> </h4>
   </div>
-    <div class ="sigin-out-container">
-    <%= link_to 'Back',"/posts/#{@post.id}/", class: 'post_btn' %>
-   </div>
-</div>
+
+  <% if can? :destroy, @post %>
+       <%= button_to 'Delete Post',
+             user_post_path,
+             data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+     <% end %>
+
+  <ul class='action'>
+    <%= form_with url: "/users/#{@post.user_id}/posts/#{@post.id}/likes" do |f| %>
+    <button type="submit">
+    <%= image_tag "https://www.facebook.com/reaction/image/1635855486666999/?size=20&scale=1", class: "group-hover:scale-125 transition ease-in duration-100"%>
+    likes
+    </button>
+  <% end %>
+
+  <button>
+    <%= link_to new_user_post_comment_path(@user.id, @post.id) do %>
+   <i data-visualcompletion="css-img" class="group-hover:scale-110 transition ease-in duration-100" style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v3/yK/r/H6IBF1RX3vl.png&quot;); background-position: 0px -213px; background-size: auto; width: 18px; height: 18px; background-repeat: no-repeat; display: inline-block;"></i>
+   comments
+  </button>
+    <% end %>
+  </ul>
+
+    <div class="card-info">
+    <% @post.comments.each do |comment| %>
+      <p> <%= comment.user.name%>: <%= comment.text%><p>
+    <% end %>  
+  </div>
+</section>
