@@ -1,14 +1,25 @@
-<%# <h1>All Users</h1> %>
-<div>
-  <% @users.each do |user| %>
+
+<div class='container'>
+  <h1 class= 'page_title'>List of Users</h1>
+  <div class ="sigin-out-container">
+    <%= link_to 'Sign Out', destroy_user_session_path, class: 'post_btn', data: { turbo_method: :delete } %>
+  </div>
+  <div>
     <ul>
-      <div class="container border rounded-3 p-3 col-8 justify-content-center">
-        <div class="d-inline ">
-          <img src= '<%= user.photo %>' width="100" height="100" class="" />
-        </div>
-        <h3 class="d-inline ps-5"><%= user.name %></h3>
-        <p class="text-end">Number of Posts: <%=user.post_counter%></p>
-      </div>
+      <% @users.each do |user| %>
+        <% @posts = Post.where(author_id: user.id) %>
+          <li>
+            <a href= "/users/<%= user.id %>" class = 'user_clickable'>
+              <div class = 'user_container'>
+                <img class = 'user_profile' src= '<%= user.photo %>' alt='photo comes here' width="100" height="100" />
+                <div class = 'info_holder' >
+                  <h3><%= user.name %></h3>
+                  <p class = 'post_counter'>Post :  <%= @posts.length %></p>
+                </div>
+              </div>
+            </a> 
+          </li>
+      <% end %>
     </ul>
-  <% end %>
+  </div>
 </div>

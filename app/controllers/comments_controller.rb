@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
+  load_and_authorize_resource
   def create
     @post = Post.find(params[:post_id])
     new_comment = current_user.comments.new(post_id: @post.id,
-                                            user_id: current_user.id, text: comment_text)
+                                            author_id: current_user.id, text: comment_text)
     respond_to do |format|
       format.html do
         if new_comment.save
@@ -12,6 +13,13 @@ class CommentsController < ApplicationController
         end
       end
     end
+  end
+
+  def destroy
+    comment = Comment.find(params[:id])
+    comment.destroy
+    comment.save
+    redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", notice: 'Comment deleted'
   end
 
   private
