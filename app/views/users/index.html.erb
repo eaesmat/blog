@@ -1,25 +1,7 @@
-
-<div class='container'>
-  <h1 class= 'page_title'>List of Users</h1>
-  <div class ="sigin-out-container">
-    <%= link_to 'Sign Out', destroy_user_session_path, class: 'post_btn', data: { turbo_method: :delete } %>
-  </div>
-  <div>
-    <ul>
-      <% @users.each do |user| %>
-        <% @posts = Post.where(author_id: user.id) %>
-          <li>
-            <a href= "/users/<%= user.id %>" class = 'user_clickable'>
-              <div class = 'user_container'>
-                <img class = 'user_profile' src= '<%= user.photo %>' alt='photo comes here' width="100" height="100" />
-                <div class = 'info_holder' >
-                  <h3><%= user.name %></h3>
-                  <p class = 'post_counter'>Post :  <%= @posts.length %></p>
-                </div>
-              </div>
-            </a> 
-          </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+<section class='list'>
+<h1> hello world </h1>
+<% @users.each do |user| %>
+   <%= render 'partials/user', user: user %>
+<% end %>
+<%= link_to 'log out', destroy_user_session_path, data: { turbo_method: :delete}%>
+</section>

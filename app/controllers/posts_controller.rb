@@ -1,44 +1,51 @@
 class PostsController < ApplicationController
   load_and_authorize_resource
-
   def index
     @user = User.find(params[:user_id])
-    @posts = Post.includes(comments: [:author]).where(posts: { author_id: @user.id })
+    @pagy, @posts = pagy(@user.posts.order(created_at: :desc), items: 3)
   end
 
   def show
     @user = User.find(params[:user_id])
-    @post = Post.includes(comments: [:author]).where(posts: { id: params[:id] })[0]
+    @post = Post.find(params[:id])
   end
 
   def new
-    @post = Post.new
+    @user = User.find(params[:user_id])
+    @post = @user.posts.new
   end
 
   def create
-    new_post = current_user.posts.new(post_data)
-    new_post.likes_counter = 0
-    new_post.comments_counter = 0
+    @user = User.find(params[:user_id])
+    @post = @user.posts.new(post_params)
+    @post.comments_counter = 0
+    @post.likes_counter = 0
     respond_to do |format|
       format.html do
-        if new_post.save
-          redirect_to "/users/#{new_post.author_id}/posts/", notice: 'Success Post Saved!'
+        if @post.save
+          flash[:success] = 'Post created successfully'
+          redirect_to user_posts_path(@user)
         else
-          render :new, status: 'Error occured with Post!'
+          flash[:error] = 'Post not created'
+          render :new
         end
       end
     end
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @post.author.decrement!(:posts_counter)
-    @post.destroy
+    post = Post.find(params[:id])
+    user = User.find(post.user_id)
+    user.posts_counter -= 1
+    post.destroy
+    user.save
+    flash[:success] = 'You have deleted this post!'
+    redirect_to user_posts_path(user)
   end
 
   private
 
-  def post_data
-    params.require(:posts).permit(:title, :text)
+  def post_params
+    params.require(:new_post).permit(:title, :text, :likes_counter, :comments_counter)
   end
 end

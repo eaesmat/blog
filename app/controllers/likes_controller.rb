@@ -1,19 +1,14 @@
 class LikesController < ApplicationController
-  load_and_authorize_resource
-
   def create
-    @post = Post.find(params[:post_id])
-    new_like = current_user.likes.new(author_id: current_user.id, post_id: @post.id)
-    if new_like.save
-      redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", notice: 'Success Like Saved!'
+    post = Post.find(params[:post_id])
+    like = Like.new
+    like.user = current_user
+    like.post = post
+    if like.save
+      flash[:success] = 'Like created successfully'
     else
-      redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", notice: 'Error Occured for Like'
+      flash[:error] = 'Like not created'
     end
-  end
-
-  def destroy
-    like = @post.likes.find(params[:id])
-    like.destroy
-    redirect_to "/users/#{@post.author_id}/posts/#{@post.id}", notice: 'Like removed'
+    redirect_to user_post_path(current_user, post)
   end
 end

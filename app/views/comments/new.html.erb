@@ -1,0 +1,12 @@
+<section class='added'>
+<h3>Add Comment</h3>
+<%= form_with model: @comment, url: user_post_comments_path, method: :post, scope: :comment, class: "form" do |form| %>
+  <div class="label">
+    <%= form.label :text %>
+    <%= form.text_area :text, class: "form-text" %>
+  </div>
+  <div class="add">
+       <%= form.submit "Add Post" %>
+  </div>
+<% end %>
+</section>
